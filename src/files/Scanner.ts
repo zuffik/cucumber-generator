@@ -7,7 +7,7 @@ export class Scanner {
     relative: string[];
   }> {
     return await new Promise((resolve, reject) =>
-      glob(this.rootDir + '/**/*.feature', (err, matches) => {
+      glob(this.rootDir + '/**/*.feature', { follow: true }, (err, matches) => {
         if (err) {
           return reject(err);
         }
