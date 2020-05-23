@@ -14,4 +14,7 @@ export const args: Args = yargs
   .string('outputDirectory')
   .alias('f', 'featuresDirectory')
   .string('featuresDirectory')
-  .string('relativePathToFeatures').argv as Args;
+  .string('relativePathToFeatures')
+  .default('relativePathToFeatures', './')
+  .demandOption('outputDirectory')
+  .demandOption('featuresDirectory').argv as Args;
