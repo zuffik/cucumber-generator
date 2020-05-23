@@ -112,3 +112,7 @@ const generator = new TemplateGenerator('jest-cucumber', {
 });
 await generator.generate();
 ```
+
+## Contribution
+
+Any help with the package is always welcome, just be sure to write and run the tests. 
