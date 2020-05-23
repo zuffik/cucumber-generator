@@ -1,6 +1,6 @@
 {
   "name": "cucumber-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate step definitions for cucumber scenarios",
   "main": "./dist/index.js",
   "repository": "https://github.com/zuffik/cucumber-generator",
@@ -35,7 +35,7 @@
     "yargs": "15.3.1"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf dist && tsc && node ./make-executable.js",
     "build:watch": "tsc --watch",
     "start": "ts-node ./src/index.ts",
     "start:watch": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/index.ts",
