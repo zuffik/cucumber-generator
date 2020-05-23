@@ -1,4 +1,5 @@
 import glob from 'glob';
+import * as path from 'path';
 
 export class Scanner {
   constructor(private readonly rootDir: string) {}
@@ -7,7 +8,7 @@ export class Scanner {
     relative: string[];
   }> {
     return await new Promise((resolve, reject) =>
-      glob(this.rootDir + '/**/*.feature', { follow: true }, (err, matches) => {
+      glob(path.join(this.rootDir, '**/*.feature'), { follow: true }, (err, matches) => {
         if (err) {
           return reject(err);
         }

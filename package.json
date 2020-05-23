@@ -1,6 +1,6 @@
 {
   "name": "cucumber-generator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Generate step definitions for cucumber scenarios",
   "main": "./dist/index.js",
   "repository": "https://github.com/zuffik/cucumber-generator",
@@ -18,9 +18,7 @@
     "@types/rimraf": "3.0.0",
     "@types/tmp": "0.2.0",
     "@types/yargs": "15.0.5",
-    "chalk": "4.0.0",
     "cucumber-messages": "8.0.0",
-    "glob": "7.1.6",
     "husky": "4.2.5",
     "jest": "26.0.1",
     "lint-staged": "10.2.6",
@@ -31,8 +29,7 @@
     "ts-jest": "26.0.0",
     "ts-node": "8.10.1",
     "typescript": "3.9.3",
-    "util": "0.12.3",
-    "yargs": "15.3.1"
+    "util": "0.12.3"
   },
   "scripts": {
     "build": "rimraf dist && tsc && node ./make-executable.js",
@@ -42,9 +39,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "chalk": "4.0.0",
     "gherkin": "9.0.0",
+    "glob": "7.1.6",
     "hygen": "5.0.3",
-    "tmp": "0.2.1"
+    "tmp": "0.2.1",
+    "yargs": "15.3.1"
   },
   "husky": {
     "hooks": {
