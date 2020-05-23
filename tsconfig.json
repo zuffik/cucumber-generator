@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "lib": ["es2017"],
+    "module": "commonjs",
+    "target": "es2017",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "dist"
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

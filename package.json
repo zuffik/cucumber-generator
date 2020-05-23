@@ -2,10 +2,61 @@
   "name": "cucumber-generator",
   "version": "1.0.0",
   "description": "Generate step definitions for cucumber scenarios",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "repository": "https://github.com/zuffik/cucumber-generator",
   "homepage": "https://github.com/zuffik/cucumber-generator",
   "author": "Kristián Žuffa <kristian.zuffa@gmail.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "bin": {
+    "cucumber-generator": "./dist/index.js"
+  },
+  "devDependencies": {
+    "@types/glob": "7.1.1",
+    "@types/jest": "25.2.3",
+    "@types/ncp": "2.0.4",
+    "@types/rimraf": "3.0.0",
+    "@types/tmp": "0.2.0",
+    "@types/yargs": "15.0.5",
+    "chalk": "4.0.0",
+    "cucumber-messages": "8.0.0",
+    "glob": "7.1.6",
+    "husky": "4.2.5",
+    "jest": "26.0.1",
+    "lint-staged": "10.2.6",
+    "ncp": "2.0.0",
+    "nodemon": "2.0.4",
+    "prettier": "2.0.5",
+    "rimraf": "3.0.2",
+    "ts-jest": "26.0.0",
+    "ts-node": "8.10.1",
+    "typescript": "3.9.3",
+    "util": "0.12.3",
+    "yargs": "15.3.1"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "start": "ts-node ./src/index.ts",
+    "start:watch": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/index.ts",
+    "test": "jest"
+  },
+  "dependencies": {
+    "gherkin": "9.0.0",
+    "hygen": "5.0.3",
+    "tmp": "0.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "./node_modules/.bin/prettier --config ./.prettierrc --write"
+    ],
+    "test/**/*.ts": [
+      "./node_modules/.bin/prettier --config ./.prettierrc --write"
+    ]
+  }
 }
