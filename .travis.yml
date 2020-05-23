@@ -15,6 +15,6 @@ deploy:
   api_key:
     secure: zdocnbHKay7HF818YXx5MCJKXfhpUKuPbiGD8+xqi/W5xERTa5rgYCiBLOsHDMIRESAwn3EhSUmL6PstB5p48iqc+0pImlu6qYik0ohxN3M801GkSHHaqj56R7QBInRZ7lNrtIZpfZ/sqb9/qF0HoV6rjQRaw2Fl7ABMHVJoQ4oJqJuUy5WKTatvbCCw23fSoGQcmop/ptW/e5U5pCuenWe/6FyfpZbfemS8jn/aTv30iLYcYi1xxkEb8FbI1GgFjXlLk0pOQOe6e1RmWNKkaI4Sqra8YaOYkoTA73uUBGttn/v+LBZLULDuurUkmOUNDjSQQ9SLQM0sTX9cNApmhRZH4Osaq6OOKKIzf4ktAL6bmiw/Zy42dpcf1XS4BGXVx/LNIyctdNWxF5VZvUivULwaLBKnLCGDUFvRCuWs2WRueq1JsawCR+djYzNR+HYGifPCLYV+iQXAP2HGdDONnZUU4u0OPwHrnBliggT+8LDY9XgHn2vFzO5EvoyFQusJ3tb6wnonLkaZ6WXgnbtqT1Sen2VUzHCirU4/2zAfcwRR9alZg4C87CanmdVS3tUjOG/jsct3vL8IThQbOuTtwpY6VYSE9yf4nrE/6t6q8aJ4ZKLImdMcnYpGsNpBXGm/59owKypH3LKHn3+L3elSVdSIwkaBVOLYNcetXJMbO3o=
   on:
-    repo: cucumber-generator
+    repo: zuffik/cucumber-generator
     branch: master
 
