@@ -3,27 +3,17 @@ import { Scanner } from './src/files/Scanner';
 import { ScanResult } from './src/files/Scanner';
 
 declare module 'cucumber-generator' {
-  export interface FileOutputOptions {
-    outputDirectory: string;
-    maintainStructure?: boolean;
-  }
-
-  export interface ConsoleOutputOptions {
-  }
-
   export type Options = {
     featuresDirectory: string;
     scanner?: Scanner;
     parser?: Parser;
-  } & (FileOutputOptions | ConsoleOutputOptions)
+  }
 
   export abstract class Generator {
     protected readonly parser: Parser;
     protected readonly scanner: Scanner;
 
     public readonly featuresDirectory: string;
-    public readonly outputDirectory?: string;
-    public readonly maintainStructure?: boolean;
 
     protected constructor(options: Options);
 
@@ -68,5 +58,18 @@ declare module 'cucumber-generator' {
   export interface Feature {
     label: string;
     scenarios: Scenario[];
+  }
+
+  export interface Writer {
+    write(featureFile: string, content: string): Promise<boolean>;
+  }
+
+  export class FileWriter implements Writer {
+    constructor(
+      private readonly maintainStructure: boolean
+    );
+  }
+
+  export class StdioWriter implements Writer {
   }
 }
