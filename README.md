@@ -110,7 +110,7 @@ const generator = new TemplateGenerator('jest-cucumber', {
       relativePathToFeatures,
     },
 });
-await generator.generate();
+const result = await generator.generate();
 ```
 
 ## Contribution

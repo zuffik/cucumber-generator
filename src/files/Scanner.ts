@@ -1,4 +1,6 @@
 import glob from 'glob';
+import * as fs from 'fs';
+import * as path from 'path';
 
 export type ScanResult = {
   absolute: string[];
@@ -8,7 +10,7 @@ export type ScanResult = {
 export class Scanner {
   constructor(public readonly rootDir: string) {}
 
-  public async scan(): Promise<ScanResult> {
+  public async scanForFeatures(): Promise<ScanResult> {
     const root = this.rootDir.endsWith('/')
       ? this.rootDir.slice(0, this.rootDir.length - 1)
       : this.rootDir;
