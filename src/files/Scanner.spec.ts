@@ -11,10 +11,12 @@ describe('Scanner', () => {
     expect(scans).toEqual({
       absolute: expect.arrayContaining([
         path.join(fixtures, 'auth/Login.feature'),
+        path.join(fixtures, 'external/Addition.feature'),
         path.join(fixtures, 'Simple.feature'),
       ]),
       relative: expect.arrayContaining([
         path.join('fixtures', 'auth/Login.feature'),
+        path.join('fixtures', 'external/Addition.feature'),
         path.join('fixtures', 'Simple.feature'),
       ]),
     });
@@ -26,9 +28,14 @@ describe('Scanner', () => {
     expect(scans).toEqual({
       absolute: expect.arrayContaining([
         path.join(fixtures, 'auth/Login.feature'),
+        path.join(fixtures, 'external/Addition.feature'),
         path.join(fixtures, 'Simple.feature'),
       ]),
-      relative: expect.arrayContaining(['auth/Login.feature', 'Simple.feature']),
+      relative: expect.arrayContaining([
+        'auth/Login.feature',
+        'external/Addition.feature',
+        'Simple.feature',
+      ]),
     });
   });
 });

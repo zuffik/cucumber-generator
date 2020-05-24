@@ -7,6 +7,7 @@ export interface Args {
 }
 
 export const args: Args = yargs
+  .completion()
   .alias('h', 'help')
   .help('h')
   .showHelpOnFail(true)
