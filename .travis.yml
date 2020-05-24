@@ -8,7 +8,7 @@ script:
   - yarn test
   - yarn build
   - rm -rf src test tsconfig.test.json jest.config.js .prettierrc .nvmrc .gitignore
-    node_modules .travis.yml make-executable.js README.md tsconfig.json
+    node_modules .travis.yml make-executable.js tsconfig.json
 deploy:
   provider: npm
   email: kristian.zuffa@gmail.com
@@ -18,3 +18,7 @@ deploy:
   on:
     repo: zuffik/cucumber-generator
     branch: master
+
+branches:
+  only:
+    - master

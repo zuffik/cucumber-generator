@@ -4,5 +4,5 @@ export * from './generators/Generator';
 export * from './generators/TemplateGenerator';
 
 if (require.main === module) {
-  runner(require('./cli/Args')).catch((e) => console.error(e));
+  runner(require('./cli/Args').args).catch((e) => console.error(e));
 }

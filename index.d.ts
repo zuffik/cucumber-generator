@@ -1,5 +1,6 @@
 import { Parser } from './src/files/Parser';
 import { Scanner } from './src/files/Scanner';
+import { ScanResult } from './src/files/Scanner';
 
 declare module 'cucumber-generator' {
   export interface FileOutputOptions {
@@ -12,6 +13,8 @@ declare module 'cucumber-generator' {
 
   export type Options = {
     featuresDirectory: string;
+    scanner?: Scanner;
+    parser?: Parser;
   } & (FileOutputOptions | ConsoleOutputOptions)
 
   export abstract class Generator {
@@ -44,6 +47,8 @@ declare module 'cucumber-generator' {
       options: Options
     );
 
+    public excludeExistingFiles(scanResult: ScanResult): ScanResult;
+
     public generate(): Promise<Record<string, string>>;
   }
 
@@ -52,8 +57,16 @@ declare module 'cucumber-generator' {
     stop: 'given' | 'and' | 'then' | 'when';
   }
 
+  export type DataTable = Record<string, Record<string, any>[]>;
+
+  export interface Scenario {
+    label: string;
+    dataTable?: DataTable;
+    stops: Stop[];
+  }
+
   export interface Feature {
     label: string;
-    stops: Stop[];
+    scenarios: Scenario[];
   }
 }
