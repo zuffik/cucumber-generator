@@ -43,19 +43,19 @@ describe('JestCucumberGenerator integration', () => {
         {
           label: '1st scenario name',
           stops: [
-            { stop: 'given', label: '1st Given stop' },
-            { stop: 'given', label: '2nd Given stop' },
-            { stop: 'when', label: 'Condition stop' },
-            { stop: 'and', label: 'Conjuncture stop' },
-            { stop: 'then', label: 'Result stop' },
+            { stop: 'given', label: '1st Given stop', parameters: [] },
+            { stop: 'given', label: '2nd Given stop', parameters: [] },
+            { stop: 'when', label: 'Condition stop', parameters: [] },
+            { stop: 'and', label: 'Conjuncture stop', parameters: [] },
+            { stop: 'then', label: 'Result stop', parameters: [] },
           ],
         },
         {
           label: '2nd scenario name',
           stops: [
-            { stop: 'given', label: 'Given stop' },
-            { stop: 'when', label: 'Action stop' },
-            { stop: 'then', label: 'Final stop' },
+            { stop: 'given', label: 'Given stop', parameters: [] },
+            { stop: 'when', label: 'Action stop', parameters: [] },
+            { stop: 'then', label: 'Final stop', parameters: [] },
           ],
         },
       ],
@@ -88,30 +88,18 @@ describe('JestCucumberGenerator integration', () => {
       scenarios: [
         {
           label: 'Successful login',
-          dataTable: {
-            'inputting credentials': [
-              { username: 'demo-1', password: '{env.APP_DEMO_USER_PASS}' },
-              { username: 'demo-2', password: '{env.APP_DEMO_USER_PASS}' },
-            ],
-          },
           stops: [
-            { stop: 'when', label: 'inputting credentials' },
-            { stop: 'and', label: 'trying to login' },
-            { stop: 'then', label: 'it should be successful' },
+            { stop: 'when', label: 'inputting credentials', parameters: ['data'] },
+            { stop: 'and', label: 'trying to login', parameters: [] },
+            { stop: 'then', label: 'it should be successful', parameters: [] },
           ],
         },
         {
           label: 'Unsuccessful login',
-          dataTable: {
-            'inputting credentials': [
-              { username: 'demo-1', password: `something-that'll probably won't work` },
-              { username: 'demo-2', password: 'An0therDummyPAss' },
-            ],
-          },
           stops: [
-            { stop: 'when', label: 'inputting credentials' },
-            { stop: 'and', label: 'trying to login' },
-            { stop: 'then', label: `it shouldn't be successful` },
+            { stop: 'when', label: 'inputting credentials', parameters: ['data'] },
+            { stop: 'and', label: 'trying to login', parameters: [] },
+            { stop: 'then', label: `it shouldn't be successful`, parameters: [] },
           ],
         },
       ],
