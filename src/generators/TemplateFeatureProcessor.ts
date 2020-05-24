@@ -8,12 +8,13 @@ interface Options {
   variables: Record<string, any>;
   templateDirectory: string;
   featureFile: string;
+  template: string;
 }
 
 export class TemplateFeatureProcessor {
   public static async processFeature(
     feature: Feature,
-    { variables: vars, featureFile: f, templateDirectory }: Options
+    { variables: vars, featureFile: f, templateDirectory, template }: Options
   ): Promise<string> {
     const stopKeys: string[] = flatten(feature.scenarios)[0].stops.map((s: Stop) => s.stop);
     const variables = {
@@ -21,10 +22,15 @@ export class TemplateFeatureProcessor {
       featureFilePath: `${vars.relativePathToFeatures}/${f}`,
       stops: stopKeys.filter((s, i) => stopKeys.indexOf(s) === i),
       feature,
+      capitalize: this.capitalize,
     };
     return ejs.render(
-      fs.readFileSync(path.join(templateDirectory, 'jest-cucumber.ejs')).toString(),
+      fs.readFileSync(path.join(templateDirectory, template + '.ejs')).toString(),
       variables
     );
+  }
+
+  private static capitalize(value: string) {
+    return value.charAt(0).toUpperCase() + value.slice(1);
   }
 }
