@@ -1,3 +1,3 @@
 export interface Writer {
-  write(content: string): Promise<void>;
+  write(featureFile: string, content: string): Promise<boolean>;
 }

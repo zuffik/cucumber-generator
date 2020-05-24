@@ -7,7 +7,7 @@ describe('Scanner', () => {
 
   it('should find features from src', async () => {
     const scanner = new Scanner(root);
-    const scans = await scanner.scan();
+    const scans = await scanner.scanForFeatures();
     expect(scans).toEqual({
       absolute: expect.arrayContaining([
         path.join(fixtures, 'auth/Login.feature'),
@@ -24,7 +24,7 @@ describe('Scanner', () => {
 
   it('should find features from src', async () => {
     const scanner = new Scanner(fixtures);
-    const scans = await scanner.scan();
+    const scans = await scanner.scanForFeatures();
     expect(scans).toEqual({
       absolute: expect.arrayContaining([
         path.join(fixtures, 'auth/Login.feature'),

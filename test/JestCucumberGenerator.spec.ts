@@ -10,6 +10,7 @@ describe('JestCucumberGenerator integration', () => {
   let featuresDirectory: string;
   let outputDirectory: string;
   const relativePathToFeatures = '../features';
+  const templateDirectory = path.join(__dirname, '..', 'templates');
 
   beforeEach(() => {
     featuresDirectory = tmp.dirSync().name;
@@ -34,7 +35,7 @@ describe('JestCucumberGenerator integration', () => {
         relativePathToFeatures,
       },
       featuresDirectory,
-      outputDirectory,
+      templateDirectory,
     });
     const feature: Feature = {
       label: 'Simple feature name',
@@ -68,10 +69,7 @@ describe('JestCucumberGenerator integration', () => {
           relativePathToFeatures,
         },
         featureFile: 'Simple.feature',
-        outputDirectory,
-        maintainStructure: false,
-        templateDirectory: process.cwd(),
-        verbose: false,
+        templateDirectory,
       })
     );
   });
@@ -83,7 +81,7 @@ describe('JestCucumberGenerator integration', () => {
         relativePathToFeatures,
       },
       featuresDirectory: path.join(featuresDirectory, 'auth'),
-      outputDirectory,
+      templateDirectory,
     });
     const feature: Feature = {
       label: 'Login user',
@@ -127,10 +125,7 @@ describe('JestCucumberGenerator integration', () => {
           relativePathToFeatures,
         },
         featureFile: 'Login.feature',
-        outputDirectory,
-        maintainStructure: false,
-        templateDirectory: process.cwd(),
-        verbose: false,
+        templateDirectory,
       })
     );
   });

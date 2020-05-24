@@ -9,17 +9,19 @@ jest.mock('fs', () => ({
   writeFile: jest.fn((p, data, callback) => {
     callback(null);
   }),
+  existsSync: jest.fn(() => false),
 }));
 
 describe('FileWriter', () => {
   let fileWriter: FileWriter;
-  const file = path.join(__dirname, 'file.txt');
+  const fileName = 'file.txt';
+  const file = path.join(__dirname, fileName);
 
-  beforeEach(() => (fileWriter = new FileWriter(file)));
+  beforeEach(() => (fileWriter = new FileWriter(true, __dirname)));
 
   it('should create file with content', async () => {
     const content = 'file';
-    await fileWriter.write(content);
+    await fileWriter.write(fileName, content);
     const { mkdir, writeFile } = require('fs');
     expect(mkdir).toBeCalledWith(__dirname, expect.anything(), expect.anything());
     expect(writeFile).toBeCalledWith(file, content, expect.anything());
