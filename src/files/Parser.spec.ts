@@ -30,19 +30,19 @@ describe('Parser', () => {
             {
               label: '1st scenario name',
               stops: expect.arrayContaining([
-                { stop: 'given', label: '1st Given stop' },
-                { stop: 'given', label: '2nd Given stop' },
-                { stop: 'when', label: 'Condition stop' },
-                { stop: 'and', label: 'Conjuncture stop' },
-                { stop: 'then', label: 'Result stop' },
+                { stop: 'given', label: '1st Given stop', parameters: [] },
+                { stop: 'given', label: '2nd Given stop', parameters: [] },
+                { stop: 'when', label: 'Condition stop', parameters: [] },
+                { stop: 'and', label: 'Conjuncture stop', parameters: [] },
+                { stop: 'then', label: 'Result stop', parameters: [] },
               ]),
             },
             {
               label: '2nd scenario name',
               stops: expect.arrayContaining([
-                { stop: 'given', label: 'Given stop' },
-                { stop: 'when', label: 'Action stop' },
-                { stop: 'then', label: 'Final stop' },
+                { stop: 'given', label: 'Given stop', parameters: [] },
+                { stop: 'when', label: 'Action stop', parameters: [] },
+                { stop: 'then', label: 'Final stop', parameters: [] },
               ]),
             },
           ],

@@ -33,7 +33,7 @@ export const runner = async (args: Args) => {
     args.output == 'file'
       ? new FileWriter(args.maintainStructure, outputDirectory)
       : new StdioWriter();
-  const processed = (
+  const processed: string[] = (
     await Promise.all(
       Object.keys(result).map(async (file) => {
         const content = result[file];
@@ -42,11 +42,13 @@ export const runner = async (args: Args) => {
     )
   )
     .filter(([f, s]) => s)
-    .map(([f]) => f);
+    .map(([f]) => f) as string[];
 
   console.log(chalk.bold.green(`\nGenerated ${processed.length} files:`));
   for (let file of processed) {
-    console.log(chalk.green(file));
+    console.log(
+      chalk.green(path.join(args.outputDirectory || '', file.replace(/\.feature$/, '.spec.ts')))
+    );
   }
   console.log();
 };

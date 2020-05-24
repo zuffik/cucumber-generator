@@ -6,6 +6,9 @@ Simple generator for [cucumber](https://cucumber.io) features.
 It's still under development and currently can transform only simple features
 to [jest-cucumber](https://www.npmjs.com/package/jest-cucumber) style, but 
 basicaly there can be any template given as parameter.
+Of course you can use `jest-cucumber` templates but if you're using other library
+or you have many feature files and you don't want to copy-paste the code from console
+then this tool is made for you. :)
 
 Generator will lookup for all features in given directory and generate `.spec.ts` 
 files accordingly.
@@ -20,9 +23,11 @@ Usage: `npx cucumber-generator [parameters]`
 Options:
   --version                 Show version number                        [boolean]
   -h, --help                Show help                                  [boolean]
-  -o, --outputDirectory                                      [string] [required]
+  --output                                 [required] [choices: "stdio", "file"]
   -f, --featuresDirectory                                    [string] [required]
   --relativePathToFeatures                              [string] [default: "./"]
+  --maintainStructure                                  [boolean] [default: true]
+  --verbose                                           [boolean] [default: false]
 ```
 
 ### Example
