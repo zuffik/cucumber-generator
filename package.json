@@ -1,11 +1,12 @@
 {
   "name": "cucumber-generator",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Generate step definitions for cucumber scenarios",
   "main": "./dist/index.js",
   "repository": "https://github.com/zuffik/cucumber-generator",
   "homepage": "https://github.com/zuffik/cucumber-generator",
   "author": "Kristián Žuffa <kristian.zuffa@gmail.com>",
+  "keywords": ["cucumber", "gherkin", "jest", "testing", "cucumber generator"],
   "license": "MIT",
   "private": false,
   "bin": {

@@ -4,6 +4,7 @@ import rimraf from 'rimraf';
 import * as path from 'path';
 import ncp from 'ncp';
 import { TemplateFeatureProcessor } from '../src/generators/TemplateFeatureProcessor';
+import { Feature } from '../src/files/Types';
 
 describe('JestCucumberGenerator integration', () => {
   let featuresDirectory: string;
@@ -24,6 +25,10 @@ describe('JestCucumberGenerator integration', () => {
     await new Promise((resolve, reject) =>
       rimraf(path.join(featuresDirectory, 'auth'), (err) => (err ? reject(err) : resolve()))
     );
+    await new Promise((resolve, reject) =>
+      rimraf(path.join(featuresDirectory, 'external'), (err) => (err ? reject(err) : resolve()))
+    );
+    const spy = jest.spyOn(TemplateFeatureProcessor, 'processFeature');
     const generator = new TemplateGenerator('jest-cucumber', {
       variables: {
         relativePathToFeatures,
@@ -31,52 +36,112 @@ describe('JestCucumberGenerator integration', () => {
       featuresDirectory,
       outputDirectory,
     });
-    const result = await generator.generate();
-    expect(result['Simple.feature']).toBeDefined();
-    expect(result['Simple.feature']).toEqual(
-      await TemplateFeatureProcessor.processFeature(
+    const feature: Feature = {
+      label: 'Simple feature name',
+      scenarios: [
         {
-          label: 'Simple feature name',
-          scenarios: [
-            {
-              label: '1st scenario name',
-              stops: [
-                { stop: 'given', label: '1st Given stop' },
-                { stop: 'given', label: '2nd Given stop' },
-                { stop: 'when', label: 'Condition stop' },
-                { stop: 'and', label: 'Conjuncture stop' },
-                { stop: 'then', label: 'Result stop' },
-              ],
-            },
-            {
-              label: '2nd scenario name',
-              stops: [
-                { stop: 'given', label: 'Given stop' },
-                { stop: 'when', label: 'Action stop' },
-                { stop: 'then', label: 'Final stop' },
-              ],
-            },
+          label: '1st scenario name',
+          stops: [
+            { stop: 'given', label: '1st Given stop' },
+            { stop: 'given', label: '2nd Given stop' },
+            { stop: 'when', label: 'Condition stop' },
+            { stop: 'and', label: 'Conjuncture stop' },
+            { stop: 'then', label: 'Result stop' },
           ],
         },
         {
-          variables: {
-            relativePathToFeatures,
-          },
-          featureFile: 'Simple.feature',
-          outputDirectory,
-          maintainStructure: false,
-          templateDirectory: process.cwd(),
-        }
-      )
+          label: '2nd scenario name',
+          stops: [
+            { stop: 'given', label: 'Given stop' },
+            { stop: 'when', label: 'Action stop' },
+            { stop: 'then', label: 'Final stop' },
+          ],
+        },
+      ],
+    };
+    const result = await generator.generate();
+    expect(spy).toBeCalledWith(feature, expect.anything());
+    expect(result['Simple.feature']).toBeDefined();
+    expect(result['Simple.feature']).toEqual(
+      await TemplateFeatureProcessor.processFeature(feature, {
+        variables: {
+          relativePathToFeatures,
+        },
+        featureFile: 'Simple.feature',
+        outputDirectory,
+        maintainStructure: false,
+        templateDirectory: process.cwd(),
+        verbose: false,
+      })
     );
   });
 
-  afterEach(() =>
-    Promise.all(
+  it('should generate login feature', async () => {
+    const spy = jest.spyOn(TemplateFeatureProcessor, 'processFeature');
+    const generator = new TemplateGenerator('jest-cucumber', {
+      variables: {
+        relativePathToFeatures,
+      },
+      featuresDirectory: path.join(featuresDirectory, 'auth'),
+      outputDirectory,
+    });
+    const feature: Feature = {
+      label: 'Login user',
+      scenarios: [
+        {
+          label: 'Successful login',
+          dataTable: {
+            'inputting credentials': [
+              { username: 'demo-1', password: '{env.APP_DEMO_USER_PASS}' },
+              { username: 'demo-2', password: '{env.APP_DEMO_USER_PASS}' },
+            ],
+          },
+          stops: [
+            { stop: 'when', label: 'inputting credentials' },
+            { stop: 'and', label: 'trying to login' },
+            { stop: 'then', label: 'it should be successful' },
+          ],
+        },
+        {
+          label: 'Unsuccessful login',
+          dataTable: {
+            'inputting credentials': [
+              { username: 'demo-1', password: `something-that'll probably won't work` },
+              { username: 'demo-2', password: 'An0therDummyPAss' },
+            ],
+          },
+          stops: [
+            { stop: 'when', label: 'inputting credentials' },
+            { stop: 'and', label: 'trying to login' },
+            { stop: 'then', label: `it shouldn't be successful` },
+          ],
+        },
+      ],
+    };
+    const result = await generator.generate();
+    expect(spy).toBeCalledWith(feature, expect.anything());
+    expect(result['Login.feature']).toBeDefined();
+    expect(result['Login.feature']).toEqual(
+      await TemplateFeatureProcessor.processFeature(feature, {
+        variables: {
+          relativePathToFeatures,
+        },
+        featureFile: 'Login.feature',
+        outputDirectory,
+        maintainStructure: false,
+        templateDirectory: process.cwd(),
+        verbose: false,
+      })
+    );
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    return Promise.all(
       [featuresDirectory, outputDirectory].map(
         (dir) =>
           new Promise((resolve, reject) => rimraf(dir, (err) => (err ? reject(err) : resolve())))
       )
-    )
-  );
+    );
+  });
 });

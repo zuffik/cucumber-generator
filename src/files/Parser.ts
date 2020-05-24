@@ -1,6 +1,6 @@
 import Gherkin from 'gherkin';
 import { messages } from 'cucumber-messages';
-import { Feature, ParseResult, Stop } from './Types';
+import { DataTable, Feature, ParseResult, Scenario, Stop } from './Types';
 import * as path from 'path';
 import GherkinDocument = messages.GherkinDocument;
 
@@ -30,14 +30,39 @@ export class Parser {
     return doc.map((doc) => ({
       label: doc.feature?.name || '',
       scenarios:
-        doc.feature?.children?.map((pickle) => ({
-          label: pickle.scenario?.name || '',
-          stops:
-            pickle.scenario?.steps?.map((step) => ({
-              label: step.text || '',
-              stop: (step.keyword || '').trim().toLowerCase() as Stop['stop'],
-            })) || [],
-        })) || [],
+        doc.feature?.children?.map(
+          (pickle): Scenario => {
+            let dataTable: DataTable | undefined = undefined;
+            const stepsWithData = pickle.scenario?.steps?.filter((step) => step.dataTable);
+            if (stepsWithData && stepsWithData.length > 0) {
+              dataTable = Object.assign(
+                {},
+                ...stepsWithData.map((s) => ({
+                  [s.text || '']:
+                    s
+                      .dataTable!.rows?.slice(1)
+                      .map((row) =>
+                        Object.assign(
+                          {},
+                          ...(row.cells?.map((cell, i) => ({
+                            [s.dataTable!.rows?.[0]?.cells?.[i]?.value || '']: cell.value,
+                          })) || [])
+                        )
+                      ) || [],
+                }))
+              );
+            }
+            return {
+              label: pickle.scenario?.name || '',
+              dataTable,
+              stops:
+                pickle.scenario?.steps?.map((step) => ({
+                  label: step.text || '',
+                  stop: (step.keyword || '').trim().toLowerCase() as Stop['stop'],
+                })) || [],
+            };
+          }
+        ) || [],
     }));
   }
 }
