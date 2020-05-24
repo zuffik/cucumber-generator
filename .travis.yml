@@ -18,3 +18,7 @@ deploy:
   on:
     repo: zuffik/cucumber-generator
     branch: master
+
+branches:
+  only:
+    - master
