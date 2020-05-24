@@ -1,6 +1,8 @@
 import { Generator, Options as BaseOptions } from './Generator';
 import { Parser } from '../files/Parser';
 import { TemplateFeatureProcessor } from './TemplateFeatureProcessor';
+import { ScanResult } from '../files/Scanner';
+import * as fs from 'fs';
 
 type Options = BaseOptions & {
   variables: {
@@ -21,9 +23,34 @@ export class TemplateGenerator extends Generator {
     this.templateDirectory = templateDirectory || process.cwd();
   }
 
-  public async generate(): Promise<Record<string, string>> {
+  public excludeExistingFiles(scanResult: ScanResult): ScanResult {
+    return {
+      absolute: scanResult.absolute.filter(
+        (file) =>
+          !fs.existsSync(
+            TemplateFeatureProcessor.getOutputFile(
+              file.replace(this.scanner.rootDir, '').slice(1),
+              this.outputDirectory,
+              !!this.maintainStructure
+            )
+          )
+      ),
+      relative: scanResult.relative.filter(
+        (file) =>
+          !fs.existsSync(
+            TemplateFeatureProcessor.getOutputFile(
+              file,
+              this.outputDirectory,
+              !!this.maintainStructure
+            )
+          )
+      ),
+    };
+  }
+
+  public async generate(verbose: boolean = false): Promise<Record<string, string>> {
     const result: Record<string, string> = {};
-    const featureFiles = await this.scanner.scan();
+    const featureFiles = this.excludeExistingFiles(await this.scanner.scan());
     for (let f of featureFiles.relative) {
       const doc = await this.parser.parse(f);
       const features = Parser.toFeatures(doc);
@@ -34,6 +61,7 @@ export class TemplateGenerator extends Generator {
           maintainStructure: !!this.maintainStructure,
           outputDirectory: this.outputDirectory,
           featureFile: f,
+          verbose,
         });
       }
     }

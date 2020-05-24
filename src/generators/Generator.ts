@@ -11,6 +11,8 @@ interface ConsoleOutputOptions {}
 
 export type Options = {
   featuresDirectory: string;
+  scanner?: Scanner;
+  parser?: Parser;
 } & (FileOutputOptions | ConsoleOutputOptions);
 
 export abstract class Generator {
@@ -22,8 +24,8 @@ export abstract class Generator {
   public readonly maintainStructure?: boolean;
 
   protected constructor(options: Options) {
-    this.parser = new Parser(options.featuresDirectory);
-    this.scanner = new Scanner(options.featuresDirectory);
+    this.parser = options.parser || new Parser(options.featuresDirectory);
+    this.scanner = options.scanner || new Scanner(options.featuresDirectory);
 
     this.featuresDirectory = options.featuresDirectory;
     if (this.isFileOutput(options)) {
@@ -39,5 +41,5 @@ export abstract class Generator {
     return 'outputDirectory' in options;
   }
 
-  public abstract generate(): Promise<Record<string, string>>;
+  public abstract generate(verbose?: boolean): Promise<Record<string, string>>;
 }

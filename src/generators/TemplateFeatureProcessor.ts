@@ -11,9 +11,24 @@ interface Options {
   variables: Record<string, any>;
   templateDirectory: string;
   featureFile: string;
+  verbose: boolean;
 }
 
 export class TemplateFeatureProcessor {
+  public static getOutputFile(
+    file: string,
+    outputDirectory: string,
+    maintainStructure: boolean
+  ): string {
+    return path.join(
+      outputDirectory,
+      (!maintainStructure ? file.substr(file.lastIndexOf(path.sep)) : file).replace(
+        '.feature',
+        '.spec.ts'
+      )
+    );
+  }
+
   public static async processFeature(
     feature: Feature,
     {
@@ -22,12 +37,11 @@ export class TemplateFeatureProcessor {
       variables: vars,
       templateDirectory,
       featureFile: f,
+      verbose,
     }: Options
   ): Promise<string> {
     const stopKeys: string[] = flatten(feature.scenarios)[0].stops.map((s: Stop) => s.stop);
-    const outputFilePath = path
-      .join(outputDirectory, !maintainStructure ? f.substr(f.lastIndexOf(path.sep)) : f)
-      .replace('.feature', '.spec.ts');
+    const outputFilePath = this.getOutputFile(f, outputDirectory, maintainStructure);
     const variables = {
       ...vars,
       outputFilePath,
@@ -43,7 +57,7 @@ export class TemplateFeatureProcessor {
     );
     await runner(['main', 'new', 'jest-cucumber', ...parameters], {
       cwd: templateDirectory,
-      logger: new Logger(console.log.bind(console)),
+      logger: new Logger(verbose ? console.log.bind(console) : () => {}),
       createPrompter: () => require('enquirer'),
       exec: (action, body) => {
         const opts = body && body.length > 0 ? { input: body } : {};

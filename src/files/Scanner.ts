@@ -1,17 +1,19 @@
 import glob from 'glob';
 
-export class Scanner {
-  constructor(private readonly rootDir: string) {}
+export type ScanResult = {
+  absolute: string[];
+  relative: string[];
+};
 
-  public async scan(): Promise<{
-    absolute: string[];
-    relative: string[];
-  }> {
+export class Scanner {
+  constructor(public readonly rootDir: string) {}
+
+  public async scan(): Promise<ScanResult> {
     const root = this.rootDir.endsWith('/')
       ? this.rootDir.slice(0, this.rootDir.length - 1)
       : this.rootDir;
     return await new Promise((resolve, reject) =>
-      glob(this.rootDir + '/**/*.feature', { follow: true }, (err, matches) => {
+      glob(root + '/**/*.feature', { follow: true }, (err, matches) => {
         if (err) {
           return reject(err);
         }
