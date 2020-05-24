@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { runner } from 'hygen';
 import Logger from 'hygen/dist/logger';
+import { flatten } from 'array-flatten';
 
 interface Options {
   outputDirectory: string;
@@ -23,7 +24,7 @@ export class TemplateFeatureProcessor {
       featureFile: f,
     }: Options
   ): Promise<string> {
-    const stopKeys: string[] = (feature.scenarios as any).flat()[0].stops.map((s: Stop) => s.stop);
+    const stopKeys: string[] = flatten(feature.scenarios)[0].stops.map((s: Stop) => s.stop);
     const outputFilePath = path
       .join(outputDirectory, !maintainStructure ? f.substr(f.lastIndexOf(path.sep)) : f)
       .replace('.feature', '.spec.ts');
@@ -34,10 +35,12 @@ export class TemplateFeatureProcessor {
       stops: stopKeys.filter((s, i) => stopKeys.indexOf(s) === i),
       feature,
     };
-    const parameters = (Object.keys(variables).map((k) => [
-      `--${k}`,
-      JSON.stringify(variables[k as keyof typeof variables]),
-    ]) as any).flat();
+    const parameters = flatten(
+      Object.keys(variables).map((k) => [
+        `--${k}`,
+        JSON.stringify(variables[k as keyof typeof variables]),
+      ])
+    );
     await runner(['main', 'new', 'jest-cucumber', ...parameters], {
       cwd: templateDirectory,
       logger: new Logger(console.log.bind(console)),

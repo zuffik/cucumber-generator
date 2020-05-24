@@ -3,7 +3,6 @@ import { messages } from 'cucumber-messages';
 import { Feature, ParseResult, Stop } from './Types';
 import * as path from 'path';
 import GherkinDocument = messages.GherkinDocument;
-import Pickle = messages.Pickle;
 
 type Envelope = messages.Envelope;
 
