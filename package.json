@@ -38,6 +38,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "array-flatten": "^3.0.0",
     "chalk": "^4.0.0",
     "cucumber-messages": "^8.0.0",
     "gherkin": "^9.0.0",
