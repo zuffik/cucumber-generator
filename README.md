@@ -20,9 +20,11 @@ Usage: `npx cucumber-generator [parameters]`
 Options:
   --version                 Show version number                        [boolean]
   -h, --help                Show help                                  [boolean]
-  -o, --outputDirectory                                      [string] [required]
+  --output                                 [required] [choices: "stdio", "file"]
   -f, --featuresDirectory                                    [string] [required]
   --relativePathToFeatures                              [string] [default: "./"]
+  --maintainStructure                                  [boolean] [default: true]
+  --verbose                                           [boolean] [default: false]
 ```
 
 ### Example
