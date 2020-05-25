@@ -29,6 +29,7 @@ Options:
   -h, --help                Show help                                  [boolean]
   --output                                 [required] [choices: "stdio", "file"]
   -f, --featuresDirectory                                    [string] [required]
+  --templatesDirectory                                                  [string]
   --template                                 [string] [default: "jest-cucumber"]
   --relativePathToFeatures                              [string] [default: "./"]
   --maintainStructure                                  [boolean] [default: true]

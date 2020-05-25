@@ -23,6 +23,7 @@ export const args: Args = yargs
   .string('featuresDirectory')
   .string('relativePathToFeatures')
   .string('templatesDirectory')
+  .default('templatesDirectory', undefined)
   .string('template')
   .default('template', 'jest-cucumber')
   .default('relativePathToFeatures', './')
