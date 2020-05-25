@@ -1,0 +1,7 @@
+import { <%= stops.map(capitalize).join(', ') %> } from "cypress-cucumber-preprocessor/steps";
+<% feature.scenarios.forEach(function(scenario) { %>
+// <%= scenario.label %>
+<% scenario.stops.forEach(function(stop) { %>
+<%= capitalize(stop.stop) %>(`<%- stop.label %>`, (<%= stop.parameters.join(', ') %>) => {
+});
+<% })}) %>

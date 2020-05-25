@@ -4,8 +4,12 @@
 
 Simple generator for [cucumber](https://cucumber.io) features.
 It's still under development and currently can transform only simple features
-to [jest-cucumber](https://www.npmjs.com/package/jest-cucumber) style, but 
-basicaly there can be any template given as parameter.
+to following templates:
+
+* [jest-cucumber](https://www.npmjs.com/package/jest-cucumber)
+* [cypress-cucumber-preprocessor](https://github.com/TheBrainFamily/cypress-cucumber-preprocessor)
+ 
+but basicaly there can be any yours template given as parameter.
 Of course you can use `jest-cucumber` templates but if you're using other library
 or you have many feature files and you don't want to copy-paste the code from console
 then this tool is made for you. :)
@@ -25,6 +29,7 @@ Options:
   -h, --help                Show help                                  [boolean]
   --output                                 [required] [choices: "stdio", "file"]
   -f, --featuresDirectory                                    [string] [required]
+  --template                                 [string] [default: "jest-cucumber"]
   --relativePathToFeatures                              [string] [default: "./"]
   --maintainStructure                                  [boolean] [default: true]
   --verbose                                           [boolean] [default: false]
