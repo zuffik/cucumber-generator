@@ -6,6 +6,7 @@ export interface Args {
   templatesDirectory?: string;
   output: 'file' | 'stdio';
   relativePathToFeatures: string;
+  template: 'jest-cucumber' | 'cypress-cucumber-preprocessor';
   verbose: boolean;
   maintainStructure: boolean;
 }
@@ -22,6 +23,8 @@ export const args: Args = yargs
   .string('featuresDirectory')
   .string('relativePathToFeatures')
   .string('templatesDirectory')
+  .string('template')
+  .default('template', 'jest-cucumber')
   .default('relativePathToFeatures', './')
   .boolean('verbose')
   .boolean('maintainStructure')

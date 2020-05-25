@@ -13,7 +13,7 @@ export const runner = async (args: Args) => {
       ? args.outputDirectory
       : path.join(process.cwd(), args.outputDirectory);
   const scanner = new Scanner(featuresDirectory);
-  const generator = new TemplateGenerator('jest-cucumber', {
+  const generator = new TemplateGenerator(args.template, {
     featuresDirectory,
     templateDirectory: path.join(__dirname, '..', '..', 'templates'),
     variables: {

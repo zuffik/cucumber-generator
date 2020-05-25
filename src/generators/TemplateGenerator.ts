@@ -15,11 +15,13 @@ type Options = BaseOptions & {
 export class TemplateGenerator extends Generator {
   private readonly variables: Record<string, any>;
   private readonly templateDirectory: string;
+  private readonly template: string;
 
   constructor(template: string, options: Options) {
     const { variables, templateDirectory, ...base } = options;
     super(base);
     this.variables = variables;
+    this.template = template;
     this.templateDirectory = templateDirectory;
   }
 
@@ -34,6 +36,7 @@ export class TemplateGenerator extends Generator {
           variables: this.variables,
           featureFile: f,
           templateDirectory: this.templateDirectory,
+          template: this.template,
         });
       }
     }
