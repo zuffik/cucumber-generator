@@ -1,8 +1,6 @@
 import { Generator, Options as BaseOptions } from './Generator';
 import { Parser } from '../files/Parser';
 import { TemplateFeatureProcessor } from './TemplateFeatureProcessor';
-import { ScanResult } from '../files/Scanner';
-import * as fs from 'fs';
 
 type Options = BaseOptions & {
   variables: {

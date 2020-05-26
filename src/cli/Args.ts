@@ -8,6 +8,7 @@ export interface Args {
   relativePathToFeatures: string;
   template: 'jest-cucumber' | 'cypress-cucumber-preprocessor';
   verbose: boolean;
+  includeDirectory: boolean;
   maintainStructure: boolean;
 }
 
@@ -31,5 +32,11 @@ export const args: Args = yargs
   .boolean('maintainStructure')
   .default('maintainStructure', true)
   .default('verbose', false)
+  .boolean('includeDirectory')
+  .default('includeDirectory', false)
+  .describe(
+    'includeDirectory',
+    'If present, the file is generated into the directory with same name as feature name (within output folder)'
+  )
   .demandOption('output')
   .demandOption('featuresDirectory').argv as Args;
