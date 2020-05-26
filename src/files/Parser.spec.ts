@@ -28,6 +28,7 @@ describe('Parser', () => {
           label: 'Simple feature name',
           scenarios: [
             {
+              examples: {},
               label: '1st scenario name',
               stops: expect.arrayContaining([
                 { stop: 'given', label: '1st Given stop', parameters: [] },
@@ -38,12 +39,49 @@ describe('Parser', () => {
               ]),
             },
             {
+              examples: {},
               label: '2nd scenario name',
               stops: expect.arrayContaining([
                 { stop: 'given', label: 'Given stop', parameters: [] },
                 { stop: 'when', label: 'Action stop', parameters: [] },
                 { stop: 'then', label: 'Final stop', parameters: [] },
               ]),
+            },
+          ],
+        },
+      ])
+    );
+  });
+
+  it('should get features from login parse result', async () => {
+    const doc = await parser.parse('auth/Login.feature');
+    const feature = Parser.toFeatures(doc);
+    expect(feature).toEqual(
+      expect.arrayContaining([
+        {
+          label: 'Login user',
+          scenarios: [
+            {
+              label: 'Successful login',
+              examples: {
+                username: ['demo-1', 'demo-2'],
+                password: ['{env.APP_DEMO_USER_PASS}', '{env.APP_DEMO_USER_PASS}'],
+              },
+              stops: [
+                { stop: 'when', label: 'inputting <username>', parameters: ['username'] },
+                { stop: 'and', label: 'inputting <password>', parameters: ['password'] },
+                { stop: 'and', label: 'trying to login', parameters: [] },
+                { stop: 'then', label: 'it should be successful', parameters: [] },
+              ],
+            },
+            {
+              label: 'Unsuccessful login',
+              examples: {},
+              stops: [
+                { stop: 'when', label: 'inputting credentials', parameters: ['data'] },
+                { stop: 'and', label: 'trying to login', parameters: [] },
+                { stop: 'then', label: `it shouldn't be successful`, parameters: [] },
+              ],
             },
           ],
         },

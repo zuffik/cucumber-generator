@@ -1,7 +1,18 @@
-import { <%= stops.map(capitalize).join(', ') %> } from "cypress-cucumber-preprocessor/steps";
-<% feature.scenarios.forEach(function(scenario) { %>
-// <%= scenario.label %>
+import { <%= stops.map(capitalize).join(', ') %> } from "cypress-cucumber-preprocessor/steps";<%
+feature.scenarios.forEach(function(scenario) {
+  var exLen = Object.keys(scenario.examples).length > 0 ? scenario.examples[Object.keys(scenario.examples)[0]].length : 0;
+%>
+
+// <%= scenario.label %><% if (exLen > 0) {
+range(exLen).forEach(function(v, i) { %>
+<% Object.keys(scenario.examples).forEach(function(key) { %>
+<% if (!i){ %>let <% } %><%= key %> = `<%- scenario.examples[key][i] %>`;<% }) %>
 <% scenario.stops.forEach(function(stop) { %>
+<%= capitalize(stop.stop) %>(`<%- Object.keys(scenario.examples).reduce((str, key) => str.replace(new RegExp(`<${key}>`, 'g'), scenario.examples[key][i]), stop.label) %>`, () => {
+});
+<% })})
+ } else {
+scenario.stops.forEach(function(stop) { %>
 <%= capitalize(stop.stop) %>(`<%- stop.label %>`, (<%= stop.parameters.join(', ') %>) => {
 });
-<% })}) %>
+<% })}}) %>

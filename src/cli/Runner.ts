@@ -15,7 +15,7 @@ export const runner = async (args: Args) => {
   const scanner = new Scanner(featuresDirectory);
   const generator = new TemplateGenerator(args.template, {
     featuresDirectory,
-    templateDirectory: path.join(__dirname, '..', '..', 'templates'),
+    templateDirectory: args.templatesDirectory || path.join(__dirname, '..', '..', 'templates'),
     variables: {
       relativePathToFeatures: args.relativePathToFeatures,
     },

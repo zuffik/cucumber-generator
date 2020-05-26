@@ -29,6 +29,7 @@ Options:
   -h, --help                Show help                                  [boolean]
   --output                                 [required] [choices: "stdio", "file"]
   -f, --featuresDirectory                                    [string] [required]
+  --templatesDirectory                                                  [string]
   --template                                 [string] [default: "jest-cucumber"]
   --relativePathToFeatures                              [string] [default: "./"]
   --maintainStructure                                  [boolean] [default: true]
@@ -56,7 +57,7 @@ Feature: Car
     Then car should start
 ```
 
-after running `npx cucumber-generator` (with additional parameters described later) the
+after running `npx cucumber-generator` (with additional parameters described before) the
 result will be
 
 ```typescript
