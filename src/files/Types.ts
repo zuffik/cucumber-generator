@@ -11,6 +11,7 @@ export interface Stop {
 
 export interface Scenario {
   label: string;
+  examples: Record<string, (string | number)[]>;
   stops: Stop[];
 }
 

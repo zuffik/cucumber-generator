@@ -57,7 +57,7 @@ Feature: Car
     Then car should start
 ```
 
-after running `npx cucumber-generator` (with additional parameters described later) the
+after running `npx cucumber-generator` (with additional parameters described before) the
 result will be
 
 ```typescript

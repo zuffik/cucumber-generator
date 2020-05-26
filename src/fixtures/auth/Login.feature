@@ -1,13 +1,15 @@
 Feature: Login user
   Successful and unsuccessful login
 
-  Scenario: Successful login
-    When inputting credentials
+  Scenario Outline: Successful login
+    When inputting <username>
+    And inputting <password>
+    And trying to login
+    Then it should be successful
+    Examples:
       | username | password                 |
       | demo-1   | {env.APP_DEMO_USER_PASS} |
       | demo-2   | {env.APP_DEMO_USER_PASS} |
-    And trying to login
-    Then it should be successful
 
 
 

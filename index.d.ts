@@ -49,6 +49,7 @@ declare module 'cucumber-generator' {
 
   export interface Scenario {
     label: string;
+    examples: Record<string, (string | number)[]>;
     stops: Stop[];
   }
 

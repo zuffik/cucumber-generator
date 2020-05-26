@@ -23,6 +23,7 @@ export class TemplateFeatureProcessor {
       stops: stopKeys.filter((s, i) => stopKeys.indexOf(s) === i),
       feature,
       capitalize: this.capitalize,
+      range: this.range,
     };
     return ejs.render(
       fs.readFileSync(path.join(templateDirectory, template + '.ejs')).toString(),
@@ -32,5 +33,19 @@ export class TemplateFeatureProcessor {
 
   private static capitalize(value: string) {
     return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+
+  private static range(to: number): number[];
+  private static range(from: number, to: number): number[];
+  private static range(from: number, to?: number): number[] {
+    if (to === undefined) {
+      to = from;
+      from = 0;
+    }
+    const result: number[] = [];
+    for (let i = from; i < to; i++) {
+      result.push(i);
+    }
+    return result;
   }
 }
