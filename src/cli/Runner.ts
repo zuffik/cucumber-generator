@@ -31,7 +31,7 @@ export const runner = async (args: Args) => {
   const result = await generator.generate();
   const writer: Writer =
     args.output == 'file'
-      ? new FileWriter(args.maintainStructure, outputDirectory)
+      ? new FileWriter(args.maintainStructure, outputDirectory, args.includeDirectory)
       : new StdioWriter();
   const processed: string[] = (
     await Promise.all(
@@ -47,7 +47,7 @@ export const runner = async (args: Args) => {
   console.log(chalk.bold.green(`\nGenerated ${processed.length} files:`));
   for (let file of processed) {
     console.log(
-      chalk.green(path.join(args.outputDirectory || '', file.replace(/\.feature$/, '.spec.ts')))
+      chalk.green(path.join(args.outputDirectory || '', file.replace(/\.features?$/, '.spec.ts')))
     );
   }
   console.log();

@@ -27,6 +27,9 @@ Usage: `npx cucumber-generator [parameters]`
 Options:
   --version                 Show version number                        [boolean]
   -h, --help                Show help                                  [boolean]
+  --includeDirectory        If present, the file is generated into the directory
+                            with same name as feature name (within output
+                            folder)                   [boolean] [default: false]
   --output                                 [required] [choices: "stdio", "file"]
   -f, --featuresDirectory                                    [string] [required]
   --templatesDirectory                                                  [string]

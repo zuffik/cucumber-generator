@@ -64,7 +64,9 @@ declare module 'cucumber-generator' {
 
   export class FileWriter implements Writer {
     constructor(
-      private readonly maintainStructure: boolean
+      private readonly maintainStructure: boolean,
+      private readonly outputDirectory: string,
+      private readonly includeDirectory: boolean = false
     );
   }
 
