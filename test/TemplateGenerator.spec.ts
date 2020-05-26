@@ -43,6 +43,7 @@ for (let template of ['jest-cucumber', 'cypress-cucumber-preprocessor']) {
         scenarios: [
           {
             label: '1st scenario name',
+            examples: {},
             stops: [
               { stop: 'given', label: '1st Given stop', parameters: [] },
               { stop: 'given', label: '2nd Given stop', parameters: [] },
@@ -53,6 +54,7 @@ for (let template of ['jest-cucumber', 'cypress-cucumber-preprocessor']) {
           },
           {
             label: '2nd scenario name',
+            examples: {},
             stops: [
               { stop: 'given', label: 'Given stop', parameters: [] },
               { stop: 'when', label: 'Action stop', parameters: [] },
@@ -90,14 +92,20 @@ for (let template of ['jest-cucumber', 'cypress-cucumber-preprocessor']) {
         scenarios: [
           {
             label: 'Successful login',
+            examples: {
+              username: ['demo-1', 'demo-2'],
+              password: ['{env.APP_DEMO_USER_PASS}', '{env.APP_DEMO_USER_PASS}'],
+            },
             stops: [
-              { stop: 'when', label: 'inputting credentials', parameters: ['data'] },
+              { stop: 'when', label: 'inputting <username>', parameters: ['username'] },
+              { stop: 'and', label: 'inputting <password>', parameters: ['password'] },
               { stop: 'and', label: 'trying to login', parameters: [] },
               { stop: 'then', label: 'it should be successful', parameters: [] },
             ],
           },
           {
             label: 'Unsuccessful login',
+            examples: {},
             stops: [
               { stop: 'when', label: 'inputting credentials', parameters: ['data'] },
               { stop: 'and', label: 'trying to login', parameters: [] },
