@@ -11,9 +11,6 @@ export class FileWriter implements Writer {
 
   public async write(file: string, content: string): Promise<false | string> {
     let outFile = path.join(this.outputDirectory, file);
-    if (existsSync(outFile)) {
-      return false;
-    }
     let directory = outFile.substr(0, outFile.lastIndexOf(path.sep));
     if (this.includeDirectory) {
       const fn = file.match(/(^|\/)([^\/]*)\.features?$/)?.[2]!;
@@ -21,6 +18,9 @@ export class FileWriter implements Writer {
       outFile = path.join(directory, 'Steps.ts');
     } else {
       outFile = outFile.replace(/\.features?$/, '.spec.ts');
+    }
+    if (existsSync(outFile)) {
+      return false;
     }
     await new Promise((resolve, reject) => {
       if (!existsSync(directory)) {
