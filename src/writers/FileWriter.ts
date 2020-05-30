@@ -9,18 +9,18 @@ export class FileWriter implements Writer {
     private readonly includeDirectory: boolean = false
   ) {}
 
-  public async write(file: string, content: string): Promise<boolean> {
-    const featureFile = file.replace(/\.features?$/, '.spec.ts');
-    let outFile = path.join(this.outputDirectory, featureFile);
+  public async write(file: string, content: string): Promise<false | string> {
+    let outFile = path.join(this.outputDirectory, file);
     if (existsSync(outFile)) {
       return false;
     }
     let directory = outFile.substr(0, outFile.lastIndexOf(path.sep));
     if (this.includeDirectory) {
       const fn = file.match(/(^|\/)([^\/]*)\.features?$/)?.[2]!;
-      console.log(fn);
       directory = path.join(directory, fn);
-      outFile = path.join(directory, outFile.slice(outFile.lastIndexOf(path.sep) + 1));
+      outFile = path.join(directory, 'Steps.ts');
+    } else {
+      outFile = outFile.replace(/\.features?$/, '.spec.ts');
     }
     await new Promise((resolve, reject) => {
       if (!existsSync(directory)) {
@@ -42,6 +42,6 @@ export class FileWriter implements Writer {
         }
       })
     );
-    return true;
+    return outFile.replace(this.outputDirectory, '');
   }
 }
