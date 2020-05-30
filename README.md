@@ -17,6 +17,20 @@ then this tool is made for you. :)
 Generator will lookup for all features in given directory and generate `.spec.ts` 
 files accordingly.
 
+## Installing
+
+Do I need to state the obvious? :smile:
+
+```bash
+yarn add -D cucumber-generator
+```
+
+or
+
+```bash
+npm install -D cucumber-generator
+```
+
 ## CLI
 
 ### API

@@ -37,12 +37,10 @@ export const runner = async (args: Args) => {
     await Promise.all(
       Object.keys(result).map(async (file) => {
         const content = result[file];
-        return [file, await writer.write(file, content)];
+        return await writer.write(file, content);
       })
     )
-  )
-    .filter(([f, s]) => s)
-    .map(([f]) => f) as string[];
+  ).filter((f) => typeof f === 'string') as string[];
 
   console.log(chalk.bold.green(`\nGenerated ${processed.length} files:`));
   for (let file of processed) {
