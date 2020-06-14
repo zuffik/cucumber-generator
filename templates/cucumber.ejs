@@ -1,8 +1,8 @@
-import { <%= stops.filter(function(stop) {return stop != 'and'}).map(capitalize).join(', ') %> } from "cucumber";
+import { <%= stops.filter(function(stop) {return stop.toLowerCase() != 'and'}).map(capitalize).join(', ') %> } from "cucumber";
 <% feature.scenarios.forEach(function(scenario) { %>
 // <%= scenario.label %><%
 var prevStop = 'undefined'
 scenario.stops.forEach(function(stop) { %>
-<%= capitalize(stop.stop == 'and' ? prevStop : stop.stop) %>(/^<%- stop.label.replace(/<.*>/g, '(.*)') %>$/, (<%= stop.parameters.join(', ') %>) => {
+<%= capitalize(stop.stop.toLowerCase() == 'and' ? prevStop : stop.stop) %>(/^<%- stop.label.replace(/<.*>/g, '(.*)') %>$/, (<%= stop.parameters.join(', ') %>) => {
 });
 <% prevStop = stop.stop })}) %>
