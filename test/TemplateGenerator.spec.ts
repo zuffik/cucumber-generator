@@ -6,7 +6,7 @@ import ncp from 'ncp';
 import { TemplateFeatureProcessor } from '../src/generators/TemplateFeatureProcessor';
 import { Feature } from '../src/files/Types';
 
-for (let template of ['jest-cucumber', 'cypress-cucumber-preprocessor']) {
+for (let template of ['jest-cucumber', 'cypress-cucumber-preprocessor', 'cucumber']) {
   describe(`Template integration for ${template}`, () => {
     let featuresDirectory: string;
     let outputDirectory: string;
