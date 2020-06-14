@@ -6,7 +6,7 @@ export interface Args {
   templatesDirectory?: string;
   output: 'file' | 'stdio';
   relativePathToFeatures: string;
-  template: 'jest-cucumber' | 'cypress-cucumber-preprocessor';
+  template: 'jest-cucumber' | 'cypress-cucumber-preprocessor' | 'cucumber';
   verbose: boolean;
   includeDirectory: boolean;
   maintainStructure: boolean;

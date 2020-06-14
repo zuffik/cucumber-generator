@@ -33,7 +33,7 @@ declare module 'cucumber-generator' {
     private readonly templateFile: string;
 
     constructor(
-      template: 'jest-cucumber' | 'cypress-cucumber-preprocessor' | string,
+      template: 'jest-cucumber' | 'cypress-cucumber-preprocessor' | 'cucumber' | string,
       options: Options
     );
 
