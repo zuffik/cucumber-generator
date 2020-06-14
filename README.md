@@ -8,6 +8,7 @@ to following templates:
 
 * [jest-cucumber](https://www.npmjs.com/package/jest-cucumber)
 * [cypress-cucumber-preprocessor](https://github.com/TheBrainFamily/cypress-cucumber-preprocessor)
+* [cucumber](https://github.com/cucumber/cucumber-js)
  
 but basicaly there can be any yours template given as parameter.
 Of course you can use `jest-cucumber` templates but if you're using other library
