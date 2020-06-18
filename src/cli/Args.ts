@@ -1,7 +1,7 @@
 import yargs from 'yargs';
 
 export interface Args {
-  outputDirectory: string;
+  outputDirectory?: string;
   featuresDirectory: string;
   templatesDirectory?: string;
   output: 'file' | 'stdio';
@@ -20,6 +20,7 @@ export const args: Args = yargs
   .showHelpOnFail(true)
   .alias('o', 'outputDirectory')
   .string('outputDirectory')
+  .describe('outputDirectory', 'Where to put output')
   .alias('f', 'featuresDirectory')
   .string('featuresDirectory')
   .string('relativePathToFeatures')

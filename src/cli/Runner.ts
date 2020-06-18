@@ -10,7 +10,7 @@ export const runner = async (args: Args) => {
     : path.join(process.cwd(), args.featuresDirectory);
   const outputDirectory =
     !args.outputDirectory || path.isAbsolute(args.outputDirectory)
-      ? args.outputDirectory
+      ? args.outputDirectory!
       : path.join(process.cwd(), args.outputDirectory);
   const scanner = new Scanner(featuresDirectory);
   const generator = new TemplateGenerator(args.template, {
