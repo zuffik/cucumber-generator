@@ -11,7 +11,7 @@ export class Scanner {
   constructor(public readonly rootDir: string) {}
 
   public async scanForFeatures(): Promise<ScanResult> {
-    const root = this.rootDir.endsWith('/')
+    const root = this.rootDir.endsWith(path.sep)
       ? this.rootDir.slice(0, this.rootDir.length - 1)
       : this.rootDir;
     return await new Promise((resolve, reject) =>
@@ -21,7 +21,7 @@ export class Scanner {
         }
         resolve({
           absolute: matches,
-          relative: matches.map((r) => r.replace(this.rootDir, '').substr(1)),
+          relative: matches.map((r) => r.replace(root.replace(/\\/g, '/'), '').substr(1)),
         });
       })
     );

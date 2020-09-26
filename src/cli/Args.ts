@@ -20,6 +20,7 @@ export const args: Args = yargs
   .showHelpOnFail(true)
   .alias('o', 'outputDirectory')
   .string('outputDirectory')
+  .default('outputDirectory', 'output')
   .alias('f', 'featuresDirectory')
   .string('featuresDirectory')
   .string('relativePathToFeatures')
