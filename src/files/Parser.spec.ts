@@ -15,7 +15,7 @@ describe('Parser', () => {
       features.map(async (feature) => {
         const doc = await parser.parse(feature + '.feature');
         expect(doc).toEqual(expect.arrayContaining([expect.any(GherkinDocument)]));
-      })
+      }),
     );
   });
 
@@ -49,7 +49,7 @@ describe('Parser', () => {
             },
           ],
         },
-      ])
+      ]),
     );
   });
 
@@ -85,7 +85,7 @@ describe('Parser', () => {
             },
           ],
         },
-      ])
+      ]),
     );
   });
 });

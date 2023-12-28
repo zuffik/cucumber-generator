@@ -1,6 +1,6 @@
 import { TemplateGenerator } from '../src';
 import * as tmp from 'tmp';
-import rimraf from 'rimraf';
+import { rimraf } from 'rimraf';
 import * as path from 'path';
 import ncp from 'ncp';
 import { TemplateFeatureProcessor } from '../src/generators/TemplateFeatureProcessor';
@@ -16,20 +16,16 @@ for (let template of ['jest-cucumber', 'cypress-cucumber-preprocessor', 'cucumbe
     beforeEach(() => {
       featuresDirectory = tmp.dirSync().name;
       outputDirectory = tmp.dirSync().name;
-      return new Promise((resolve, reject) =>
+      return new Promise<void>((resolve, reject) =>
         ncp(path.join(__dirname, '..', 'src', 'fixtures'), featuresDirectory, (err) =>
-          err ? reject(err) : resolve()
-        )
+          err ? reject(err) : resolve(),
+        ),
       );
     });
 
     it('should generate simple feature', async () => {
-      await new Promise((resolve, reject) =>
-        rimraf(path.join(featuresDirectory, 'auth'), (err) => (err ? reject(err) : resolve()))
-      );
-      await new Promise((resolve, reject) =>
-        rimraf(path.join(featuresDirectory, 'external'), (err) => (err ? reject(err) : resolve()))
-      );
+      await rimraf(path.join(featuresDirectory, 'auth'));
+      await rimraf(path.join(featuresDirectory, 'external'));
       const spy = jest.spyOn(TemplateFeatureProcessor, 'processFeature');
       const generator = new TemplateGenerator(template, {
         variables: {
@@ -74,7 +70,7 @@ for (let template of ['jest-cucumber', 'cypress-cucumber-preprocessor', 'cucumbe
           featureFile: 'Simple.feature',
           templateDirectory,
           template,
-        })
+        }),
       );
     });
 
@@ -125,18 +121,13 @@ for (let template of ['jest-cucumber', 'cypress-cucumber-preprocessor', 'cucumbe
           featureFile: 'Login.feature',
           templateDirectory,
           template,
-        })
+        }),
       );
     });
 
     afterEach(() => {
       jest.clearAllMocks();
-      return Promise.all(
-        [featuresDirectory, outputDirectory].map(
-          (dir) =>
-            new Promise((resolve, reject) => rimraf(dir, (err) => (err ? reject(err) : resolve())))
-        )
-      );
+      return Promise.all([featuresDirectory, outputDirectory].map((dir) => rimraf(dir)));
     });
   });
 }

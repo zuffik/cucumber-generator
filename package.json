@@ -1,6 +1,6 @@
 {
   "name": "cucumber-generator",
-  "version": "1.1.10",
+  "version": "2.0.0",
   "description": "Generate step definitions for cucumber scenarios",
   "main": "./dist/index.js",
   "repository": "https://github.com/zuffik/cucumber-generator",
@@ -14,29 +14,29 @@
     "cucumber generator"
   ],
   "license": "MIT",
-  "private": false,
-  "bin": {
-    "cucumber-generator": "./dist/index.js"
-  },
+  "bin": "./dist/index.js",
   "devDependencies": {
-    "@types/ejs": "3.0.4",
-    "@types/glob": "7.1.1",
-    "@types/jest": "25.2.3",
-    "@types/ncp": "2.0.4",
-    "@types/rimraf": "3.0.0",
-    "@types/tmp": "0.2.0",
-    "@types/yargs": "15.0.5",
-    "husky": "4.2.5",
-    "jest": "26.0.1",
-    "lint-staged": "10.2.6",
-    "ncp": "2.0.0",
-    "nodemon": "2.0.4",
-    "prettier": "2.0.5",
-    "rimraf": "3.0.2",
-    "ts-jest": "26.0.0",
-    "ts-node": "8.10.1",
-    "typescript": "3.9.3",
-    "util": "0.12.3"
+    "@babel/preset-env": "^7.23.6",
+    "@babel/preset-typescript": "^7.23.3",
+    "@types/ejs": "^3.1.5",
+    "@types/glob": "^8.1.0",
+    "@types/jest": "^29.5.11",
+    "@types/ncp": "^2.0.8",
+    "@types/rimraf": "^4.0.5",
+    "@types/tmp": "^0.2.6",
+    "@types/yargs": "^17.0.32",
+    "babel-jest": "^29.7.0",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.2.0",
+    "ncp": "^2.0.0",
+    "nodemon": "^3.0.2",
+    "prettier": "^3.1.1",
+    "rimraf": "^5.0.5",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "util": "^0.12.5"
   },
   "scripts": {
     "build": "rimraf dist && tsc && node ./make-executable.js",
@@ -47,25 +47,18 @@
   },
   "dependencies": {
     "array-flatten": "^3.0.0",
-    "chalk": "^4.0.0",
+    "chalk": "^4.1.2",
     "cucumber-messages": "^8.0.0",
-    "ejs": "3.1.7",
+    "ejs": "^3.1.9",
     "gherkin": "^9.0.0",
-    "glob": "^7.1.6",
+    "glob": "^10.3.10",
     "tmp": "^0.2.1",
-    "yargs": "^15.3.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "yargs": "^17.7.2"
   },
   "lint-staged": {
-    "src/**/*.ts": [
-      "./node_modules/.bin/prettier --config ./.prettierrc --write"
-    ],
-    "test/**/*.ts": [
+    "{src,test}/**/*.ts": [
       "./node_modules/.bin/prettier --config ./.prettierrc --write"
     ]
-  }
+  },
+  "packageManager": "yarn@3.5.0"
 }

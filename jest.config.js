@@ -1,13 +1,15 @@
 module.exports = {
-  roots: ['<rootDir>/src', '<rootDir>/test'],
+  roots: [
+    '<rootDir>/src',
+    '<rootDir>/test'
+  ],
   transform: {
-    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.ts$': 'babel-jest',
   },
   testRegex: '\\.(test|spec)\\.ts$',
-  moduleFileExtensions: ['ts', 'js'],
-  globals: {
-    'ts-jest': {
-      tsConfig: 'tsconfig.test.json'
-    }
-  }
-}
+  moduleFileExtensions: [
+    'js',
+    'ts'
+  ],
+  preset: 'ts-jest'
+};

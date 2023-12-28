@@ -40,9 +40,9 @@ export class Parser {
                 flatten(pickle.scenario?.examples || []).map((e) =>
                   (e.tableHeader?.cells || []).map((h, i) => ({
                     [h.value || '']: (e.tableBody || []).map((b) => b.cells?.[i].value || ''),
-                  }))
-                )
-              )
+                  })),
+                ),
+              ),
             ),
             stops:
               pickle.scenario?.steps?.map((step) => {
@@ -61,7 +61,7 @@ export class Parser {
                   stop: (step.keyword || '').trim().toLowerCase() as Stop['stop'],
                 };
               }) || [],
-          })
+          }),
         ) || [],
     }));
   }

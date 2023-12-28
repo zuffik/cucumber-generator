@@ -14,7 +14,7 @@ interface Options {
 export class TemplateFeatureProcessor {
   public static async processFeature(
     feature: Feature,
-    { variables: vars, featureFile: f, templateDirectory, template }: Options
+    { variables: vars, featureFile: f, templateDirectory, template }: Options,
   ): Promise<string> {
     const stopKeys: string[] = flatten(feature.scenarios)[0].stops.map((s: Stop) => s.stop);
     const variables = {
@@ -27,7 +27,7 @@ export class TemplateFeatureProcessor {
     };
     return ejs.render(
       fs.readFileSync(path.join(templateDirectory, template + '.ejs')).toString(),
-      variables
+      variables,
     );
   }
 

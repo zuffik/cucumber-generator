@@ -6,7 +6,7 @@ export class FileWriter implements Writer {
   constructor(
     private readonly maintainStructure: boolean,
     private readonly outputDirectory: string,
-    private readonly includeDirectory: boolean = false
+    private readonly includeDirectory: boolean = false,
   ) {}
 
   public async write(file: string, content: string): Promise<false | string> {
@@ -22,7 +22,7 @@ export class FileWriter implements Writer {
     if (existsSync(outFile)) {
       return false;
     }
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       if (!existsSync(directory)) {
         mkdir(directory, { recursive: true }, (err) => {
           if (err) {
@@ -33,14 +33,14 @@ export class FileWriter implements Writer {
         });
       } else resolve();
     });
-    await new Promise((resolve, reject) =>
+    await new Promise<void>((resolve, reject) =>
       writeFile(outFile, content, (err) => {
         if (err) {
           reject(err);
         } else {
           resolve();
         }
-      })
+      }),
     );
     return outFile.replace(this.outputDirectory, '');
   }

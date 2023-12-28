@@ -37,7 +37,7 @@ export const args: Args = yargs
   .default('includeDirectory', false)
   .describe(
     'includeDirectory',
-    'If present, the file is generated into the directory with same name as feature name (within output folder)'
+    'If present, the file is generated into the directory with same name as feature name (within output folder)',
   )
   .demandOption('output')
   .demandOption('featuresDirectory').argv as Args;

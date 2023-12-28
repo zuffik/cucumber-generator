@@ -1,5 +1,4 @@
-import glob from 'glob';
-import * as fs from 'fs';
+import { glob } from 'glob';
 import * as path from 'path';
 
 export type ScanResult = {
@@ -14,16 +13,15 @@ export class Scanner {
     const root = this.rootDir.endsWith(path.sep)
       ? this.rootDir.slice(0, this.rootDir.length - 1)
       : this.rootDir;
-    return await new Promise((resolve, reject) =>
-      glob(root + '/**/*.feature', { follow: true }, (err, matches) => {
-        if (err) {
-          return reject(err);
-        }
-        resolve({
-          absolute: matches,
-          relative: matches.map((r) => r.replace(root.replace(/\\/g, '/'), '').substr(1)),
-        });
-      })
-    );
+    return await new Promise((resolve, reject) => {
+      glob(root + '/**/*.feature', { follow: true })
+        .then((matches) => {
+          resolve({
+            absolute: matches,
+            relative: matches.map((r) => r.replace(root.replace(/\\/g, '/'), '').substr(1)),
+          });
+        })
+        .catch(reject);
+    });
   }
 }

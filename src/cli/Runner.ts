@@ -38,14 +38,14 @@ export const runner = async (args: Args) => {
       Object.keys(result).map(async (file) => {
         const content = result[file];
         return await writer.write(file, content);
-      })
+      }),
     )
   ).filter((f) => typeof f === 'string') as string[];
 
   console.log(chalk.bold.green(`\nGenerated ${processed.length} files:`));
   for (let file of processed) {
     console.log(
-      chalk.green(path.join(args.outputDirectory || '', file.replace(/\.features?$/, '.spec.ts')))
+      chalk.green(path.join(args.outputDirectory || '', file.replace(/\.features?$/, '.spec.ts'))),
     );
   }
   console.log();
