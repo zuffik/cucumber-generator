@@ -30,11 +30,6 @@ jobs:
       - name: Cleanup
         run: rm -rf src test tsconfig.test.json jest.config.js .prettierrc .nvmrc .gitignore node_modules .travis.yml make-executable.js tsconfig.json .yarn .github .husky
 
-      - name: Login to npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: npm login --registry https://www.npmjs.com/ --legacy-peer-deps
-
       - name: Publish to NPM
         run: npm publish --access public
         env:
