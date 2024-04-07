@@ -1,0 +1,36 @@
+name: Publish to NPM
+
+on:
+  push:
+    branches:
+      - master  # Change this to your main branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'  # Change this to your preferred Node.js version
+
+      - name: Install dependencies
+        run: yarn --immutable
+
+      - name: Test
+        run: yarn test
+
+      - name: Build
+        run: yarn build
+
+      - name: Cleanup
+        run: rm -rf src test tsconfig.test.json jest.config.js .prettierrc .nvmrc .gitignore node_modules .travis.yml make-executable.js tsconfig.json
+
+      - name: Publish to NPM
+        run: npm publish --access public  # Change options as needed
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}  # Make sure to set this secret in your repository settings
