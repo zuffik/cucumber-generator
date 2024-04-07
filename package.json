@@ -1,6 +1,6 @@
 {
   "name": "cucumber-generator",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Generate step definitions for cucumber scenarios",
   "main": "./dist/index.js",
   "repository": "https://github.com/zuffik/cucumber-generator",
