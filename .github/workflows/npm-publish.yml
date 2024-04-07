@@ -13,10 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: set node-version
+        uses: actions/setup-node@v3
         with:
-          node-version: '20'  # Change this to your preferred Node.js version
+          registry-url: 'https://registry.npmjs.org/'
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install dependencies
         run: yarn --immutable
