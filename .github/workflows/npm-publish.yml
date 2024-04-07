@@ -28,7 +28,7 @@ jobs:
         run: yarn build
 
       - name: Cleanup
-        run: rm -rf src test tsconfig.test.json jest.config.js .prettierrc .nvmrc .gitignore node_modules .travis.yml make-executable.js tsconfig.json
+        run: rm -rf src test tsconfig.test.json jest.config.js .prettierrc .nvmrc .gitignore node_modules .travis.yml make-executable.js tsconfig.json .yarn .github .husky
 
       - name: Publish to NPM
         run: npm publish --access public  # Change options as needed
