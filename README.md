@@ -1,16 +1,15 @@
 # cucumber-generator
 
-[![Build Status](https://travis-ci.org/zuffik/cucumber-generator.svg?branch=master)](https://travis-ci.org/zuffik/cucumber-generator)
+[![Build Status](https://github.com/zuffik/cucumber-generator/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/zuffik/cucumber-generator/actions/workflows/npm-publish.yml)
 
 Simple generator for [cucumber](https://cucumber.io) features.
-It's still under development and currently can transform only simple features
-to following templates:
+There are 3 predefined template for generating spec files:
 
 * [jest-cucumber](https://www.npmjs.com/package/jest-cucumber)
 * [cypress-cucumber-preprocessor](https://github.com/TheBrainFamily/cypress-cucumber-preprocessor)
 * [cucumber](https://github.com/cucumber/cucumber-js)
  
-but basicaly there can be any yours template given as parameter.
+but basicaly there can be any custom template given as parameter.
 Of course you can use `jest-cucumber` templates but if you're using other library
 or you have many feature files and you don't want to copy-paste the code from console
 then this tool is made for you. :)
